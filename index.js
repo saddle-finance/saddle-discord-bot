@@ -35,6 +35,10 @@ function getChannel(channelID) {
     return bot.channels.cache.get(channelID);
 }
 
+async function log(message) {
+    return getChannel(process.env.DISCORD_LOG_CHANNEL_ID).send(message);
+}
+
 async function send(message) {
     return getChannel(process.env.DISCORD_CHANNEL_ID).send(message);
 }
@@ -42,6 +46,7 @@ async function send(message) {
 async function main() {
     bot.on('ready', () => {
         console.log(`Logged in as ${bot.user.tag}!`);
+        log("Bot restarted")
     });
 
     bot.on('message', msg => {
