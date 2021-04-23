@@ -28,4 +28,4 @@ jobs:
           USERNAME: ${{ secrets.USERNAME }}
           PORT: ${{ secrets.PORT }}
           KEY: ${{ secrets.SSHKEY }}
-          script: cd /opt/app/ && npm install
+          script: sudo -u nodejs pm2 stop index && cd /opt/app/ && npm install && sudo -u nodejs pm2 restart index
