@@ -4,7 +4,7 @@ const { Client, Intents, MessageEmbed } = require('discord.js');
 const { ethers, Contract, BigNumber } = require("ethers");
 const publicIp = require('public-ip');
 const swapABI = require('./constants/swapABI.json');
-const contracts = require('./constants/localContracts.json');
+const contracts = require('./constants/contracts.json');
 
 // Set up dotenv config and discord bot
 dotenv.config();
