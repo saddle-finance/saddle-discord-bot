@@ -2,18 +2,21 @@
   "address": "0x4f6A43Ad7cba042606dECaCA730d4CE0A57ac62e",
   "tokens": ["tBTC", "WBTC", "renBTC", "sBTC"],
   "decimals": [18, 8, 8, 18],
-  "coingeckoIDs": ["tbtc", "wrapped-bitcoin", "renbtc", "sbtc"]
+  "coingeckoIDs": ["tbtc", "wrapped-bitcoin", "renbtc", "sbtc"],
+  "name": "BTC pool"
 },
   {
     "address": "0x3911F80530595fBd01Ab1516Ab61255d75AEb066",
     "tokens": ["DAI", "USDC", "USDT"],
     "decimals": [18, 6, 6],
-    "coingeckoIDs": ["dai", "usd-coin", "tether"]
+    "coingeckoIDs": ["dai", "usd-coin", "tether"],
+    "name": "USD pool"
   },
   {
     "address": "0xdec2157831D6ABC3Ec328291119cc91B337272b5",
     "tokens": ["WETH", "vETH2"],
     "decimals": [18, 18],
-    "coingeckoIDs": ["ethereum", "ethereum"]
+    "coingeckoIDs": ["ethereum", "ethereum"],
+    "name": "vETH2 pool"
   }
 ]
