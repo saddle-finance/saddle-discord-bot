@@ -9,7 +9,9 @@ const contracts = require('./constants/contracts.json');
 // Set up dotenv config and discord bot
 dotenv.config();
 const bot = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
-const provider =  new ethers.providers.JsonRpcProvider(process.env.ALCHEMY_API);
+const provider = new ethers.providers.JsonRpcProvider(process.env.ALCHEMY_API);
+
+const isProduction = process.env.ALCHEMY_API.includes("localhost")
 
 function getChannel(channelID) {
     return bot.channels.cache.get(channelID);
@@ -47,6 +49,7 @@ async function main() {
         instance.on("TokenSwap", (buyer, tokensSold, tokensBought, soldId, boughtId, event) => {
             const soldTokenName = contract["tokens"][soldId]
             const boughtTokenName = contract["tokens"][boughtId]
+            const contractAddress = isProduction ? contract["address"] : contract["localAddress"]
 
             const digitsToShow = 4
 
@@ -58,7 +61,7 @@ async function main() {
                 .setColor('#0099ff')
                 .setTitle('Token swap')
                 .setURL(`https://etherscan.io/tx/${event.transactionHash}`)
-                .setAuthor(contract["name"], null, `https://etherscan.io/address/${contract["address"]}`)
+                .setAuthor(contract["name"], null, `https://etherscan.io/address/${contractAddress}`)
                 .setDescription(`${buyer} swapped ${soldTokenName} to ${boughtTokenName}`)
                 .addFields(
                     { name: 'Input amount', value: `${numOfTokenSold} ${soldTokenName} ($0)`, inline: true },
@@ -75,6 +78,7 @@ async function main() {
         // On AddLiquidity event
         instance.on("AddLiquidity", (provider, tokenAmounts, fees, invariant, lpTokenSupply, event) => {
             let depositAmounts = "";
+            const contractAddress = isProduction ? contract["address"] : contract["localAddress"]
 
             const digitsToShow = 3
             for (let i = 0; i < tokenAmounts.length; i++) {
@@ -87,7 +91,7 @@ async function main() {
                 .setColor('#33ff33')
                 .setTitle('Deposit')
                 .setURL(`https://etherscan.io/tx/${event.transactionHash}`)
-                .setAuthor(contract["name"], null, `https://etherscan.io/address/${contract["address"]}`)
+                .setAuthor(contract["name"], null, `https://etherscan.io/address/${contractAddress}`)
                 .setDescription(`${provider} added new liquidity to the ${contract['name']}`)
                 .addFields(
                     { name: 'Deposit amounts', value: `${depositAmounts} ($0)`, inline: false },
@@ -102,6 +106,7 @@ async function main() {
         // On RemoveLiquidity event
         instance.on("RemoveLiquidity", (provider, tokenAmounts, lpTokenSupply, event) => {
             let withdrawAmounts = "";
+            const contractAddress = isProduction ? contract["address"] : contract["localAddress"]
 
             const digitsToShow = 3
             for (let i = 0; i < tokenAmounts.length; i++) {
@@ -114,7 +119,7 @@ async function main() {
                 .setColor('#FF9A00')
                 .setTitle('Withdraw')
                 .setURL(`https://etherscan.io/tx/${event.transactionHash}`)
-                .setAuthor(contract["name"], null, `https://etherscan.io/address/${contract["address"]}`)
+                .setAuthor(contract["name"], null, `https://etherscan.io/address/${contractAddress}`)
                 .setDescription(`${provider} removed liquidity from the ${contract['name']}`)
                 .addFields(
                     { name: 'Withdraw amounts', value: `${withdrawAmounts} ($0)`, inline: false },
@@ -129,6 +134,7 @@ async function main() {
         // On RemoveLiquidity event
         instance.on("RemoveLiquidityOne", (provider, lpTokenAmount, lpTokenSupply, boughtId, tokensBought, event) => {
             const digitsToShow = 3
+            const contractAddress = isProduction ? contract["address"] : contract["localAddress"]
 
             const withdrawAmounts = `${toHumanString(tokensBought, contract["decimals"][boughtId], digitsToShow)} ${contract["tokens"][boughtId]}`;
 
@@ -137,7 +143,7 @@ async function main() {
                 .setColor('#FF9A00')
                 .setTitle('Withdraw')
                 .setURL(`https://etherscan.io/tx/${event.transactionHash}`)
-                .setAuthor(contract["name"], null, `https://etherscan.io/address/${contract["address"]}`)
+                .setAuthor(contract["name"], null, `https://etherscan.io/address/${contractAddress}`)
                 .setDescription(`${provider} removed liquidity from the ${contract['name']}`)
                 .addFields(
                     { name: 'Withdraw amounts', value: `${withdrawAmounts} ($0)`, inline: false },
@@ -152,6 +158,7 @@ async function main() {
         // On RemoveLiquidity event
         instance.on("RemoveLiquidityImbalance", (provider, tokenAmounts, fees, invariant, lpTokenSupply, event) => {
             let withdrawAmounts = "";
+            const contractAddress = isProduction ? contract["address"] : contract["localAddress"]
 
             const digitsToShow = 4
             for (let i = 0; i < tokenAmounts.length; i++) {
@@ -164,7 +171,7 @@ async function main() {
                 .setColor('#FF9A00')
                 .setTitle('Withdraw')
                 .setURL(`https://etherscan.io/tx/${event.transactionHash}`)
-                .setAuthor(contract["name"], null, `https://etherscan.io/address/${contract["address"]}`)
+                .setAuthor(contract["name"], "", `https://etherscan.io/address/${contractAddress}`)
                 .setDescription(`${provider} removed liquidity from the ${contract['name']}`)
                 .addFields(
                     { name: 'Withdraw amounts', value: `${withdrawAmounts} ($0)`, inline: false },

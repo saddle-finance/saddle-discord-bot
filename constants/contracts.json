@@ -1,5 +1,6 @@
 [{
   "address": "0x4f6A43Ad7cba042606dECaCA730d4CE0A57ac62e",
+  "localAddress": "0x610178dA211FEF7D417bC0e6FeD39F05609AD788",
   "tokens": ["tBTC", "WBTC", "renBTC", "sBTC"],
   "decimals": [18, 8, 8, 18],
   "coingeckoIDs": ["tbtc", "wrapped-bitcoin", "renbtc", "sbtc"],
@@ -7,6 +8,7 @@
 },
   {
     "address": "0x3911F80530595fBd01Ab1516Ab61255d75AEb066",
+    "localAddress": "0xCafac3dD18aC6c6e92c921884f9E4176737C052c",
     "tokens": ["DAI", "USDC", "USDT"],
     "decimals": [18, 6, 6],
     "coingeckoIDs": ["dai", "usd-coin", "tether"],
@@ -14,6 +16,7 @@
   },
   {
     "address": "0xdec2157831D6ABC3Ec328291119cc91B337272b5",
+    "localAddress": "0x9f1ac54BEF0DD2f6f3462EA0fa94fC62300d3a8e",
     "tokens": ["WETH", "vETH2"],
     "decimals": [18, 18],
     "coingeckoIDs": ["ethereum", "ethereum"],
