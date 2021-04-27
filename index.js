@@ -64,7 +64,7 @@ function toUSD(s) {
 }
 
 function formatNum(num) {
-    return BigNumber.from(parseFloat(num.toFixed(2)) * 100)
+    return BigNumber.from(parseInt(parseFloat(num.toFixed(2)) * 100))
 }
 
 async function main() {
