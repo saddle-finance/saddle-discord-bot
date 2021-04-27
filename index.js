@@ -50,13 +50,13 @@ async function send(message) {
 }
 
 function toHumanString(rawTokenAmount, decimals, digitsToShow) {
-    let s = BigNumber.from(rawTokenAmount).div(BigNumber.from(10).pow(decimals - digitsToShow)).toString();
-    if (s.length < digitsToShow) {
-        for (let i = 0; i < digitsToShow; i++) {
-            s = "0" + s;
-        }
+    let s = BigNumber.from(rawTokenAmount).div(BigNumber.from(10).pow(decimals - digitsToShow)).toNumber();
+    s = s / (10 ** digitsToShow)
+    if (s === 0) {
+        return "0";
+    } else {
+        return s.toFixed(digitsToShow);
     }
-    return s.slice(0, -digitsToShow) + "." + s.slice(-digitsToShow);
 }
 
 function toUSD(s) {
@@ -105,6 +105,8 @@ async function main() {
                 contract["decimals"][boughtId],
                 digitsToShow
             ))
+            const fee = (numOfTokenBought * 0.0004 / (1 - 0.0004))
+            const totalUSDFee = toUSD( fee * prices[`${contract["coingeckoIDs"][boughtId]}`]["usd"])
 
             // inside a command, event listener, etc.
             let embed = new MessageEmbed()
@@ -117,7 +119,7 @@ async function main() {
                     { name: 'Input amount', value: `${numOfTokenSold} ${soldTokenName} (${totalUSDValueSold})`, inline: true },
                     { name: 'Output amount', value: `${numOfTokenBought} ${boughtTokenName} (${totalUSDValueBought})`, inline: true },
                 )
-                .addField(`Fees gained by LPs`, "0", false)
+                .addField(`Fees gained by LPs`, `${fee.toFixed(digitsToShow)} ${boughtTokenName} (${totalUSDFee})`, false)
                 .setTimestamp()
 
             if (!isProduction) {
@@ -216,7 +218,6 @@ async function main() {
                 .addFields(
                     { name: 'Withdraw amounts', value: `${withdrawAmounts}`, inline: false },
                     {name: "Total USD value", value: `${toUSD(totalDollarValue)}`, inline: false}
-
                 )
                 .setTimestamp()
 
