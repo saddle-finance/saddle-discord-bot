@@ -63,6 +63,10 @@ function toUSD(s) {
     return formatter.format(parseFloat(s))
 }
 
+function formatNum(num) {
+    return BigNumber.from(parseFloat(num.toFixed(2)) * 100)
+}
+
 async function main() {
     bot.on('ready', async () => {
         console.log(`Logged in as ${bot.user.tag}!`);
@@ -92,12 +96,12 @@ async function main() {
             const numOfTokenBought = toHumanString(tokensBought, contract["decimals"][boughtId], digitsToShow)
 
             const totalUSDValueSold = toUSD(toHumanString(
-                BigNumber.from(tokensSold).mul(prices[`${contract["coingeckoIDs"][soldId]}`]["usd"]),
+                BigNumber.from(tokensSold).mul(formatNum(prices[`${contract["coingeckoIDs"][soldId]}`]["usd"])).div(100),
                 contract["decimals"][soldId],
                 digitsToShow
             ))
             const totalUSDValueBought = toUSD(toHumanString(
-                BigNumber.from(tokensBought).mul(prices[`${contract["coingeckoIDs"][boughtId]}`]["usd"]),
+                BigNumber.from(tokensBought).mul(formatNum(prices[`${contract["coingeckoIDs"][boughtId]}`]["usd"])).div(100),
                 contract["decimals"][boughtId],
                 digitsToShow
             ))
@@ -135,7 +139,7 @@ async function main() {
 
             const prices = await queryTokenPricesUSD(contract["coingeckoIDs"])
             const totalDollarValue = tokenAmounts.map((amount, i) =>
-                toHumanString(BigNumber.from(amount).mul(prices[`${contract["coingeckoIDs"][i]}`]["usd"]), contract["decimals"][i], digitsToShow)
+                toHumanString(BigNumber.from(amount).mul(formatNum(prices[`${contract["coingeckoIDs"][i]}`]["usd"])).div(100), contract["decimals"][i], digitsToShow)
             ).reduce((a, val) => a + parseFloat(val), 0)
 
             // inside a command, event listener, etc.
@@ -170,7 +174,7 @@ async function main() {
 
             const prices = await queryTokenPricesUSD(contract["coingeckoIDs"])
             const totalDollarValue = tokenAmounts.map((amount, i) =>
-                toHumanString(BigNumber.from(amount).mul(prices[`${contract["coingeckoIDs"][i]}`]["usd"]), contract["decimals"][i], digitsToShow)
+                toHumanString(BigNumber.from(amount).mul(formatNum(prices[`${contract["coingeckoIDs"][i]}`]["usd"])).div(100), contract["decimals"][i], digitsToShow)
             ).reduce((a, val) => a + parseFloat(val), 0)
 
             // inside a command, event listener, etc.
@@ -202,7 +206,7 @@ async function main() {
 
             const prices = await queryTokenPricesUSD(contract["coingeckoIDs"])
             const totalDollarValue =
-                toHumanString(BigNumber.from(tokensBought).mul(prices[`${contract["coingeckoIDs"][boughtId]}`]["usd"]), contract["decimals"][boughtId], digitsToShow)
+                toHumanString(BigNumber.from(tokensBought).mul(formatNum(prices[`${contract["coingeckoIDs"][boughtId]}`]["usd"])).div(100), contract["decimals"][boughtId], digitsToShow)
 
             // inside a command, event listener, etc.
             let embed = new MessageEmbed()
@@ -235,7 +239,7 @@ async function main() {
 
             const prices = await queryTokenPricesUSD(contract["coingeckoIDs"])
             const totalDollarValue = tokenAmounts.map((amount, i) =>
-                toHumanString(BigNumber.from(amount).mul(prices[`${contract["coingeckoIDs"][i]}`]["usd"]), contract["decimals"][i], digitsToShow)
+                toHumanString(BigNumber.from(amount).mul(formatNum(prices[`${contract["coingeckoIDs"][i]}`]["usd"])).div(100), contract["decimals"][i], digitsToShow)
             ).reduce((a, val) => a + parseFloat(val), 0)
 
             // inside a command, event listener, etc.
