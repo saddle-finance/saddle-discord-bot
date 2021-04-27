@@ -119,7 +119,6 @@ async function main() {
                 )
                 .addField(`Fees gained by LPs`, "0", false)
                 .setTimestamp()
-                .setFooter('Some footer text here', 'https://i.imgur.com/wSTFkRM.png');
 
             if (!isProduction) {
                 embed = embed.setFooter(`Hardhat network`)
@@ -154,7 +153,6 @@ async function main() {
                     {name: "Total USD value", value: `${toUSD(totalDollarValue)}`, inline: false}
                 )
                 .setTimestamp()
-                .setFooter('Some footer text here', 'https://i.imgur.com/wSTFkRM.png');
 
             if (!isProduction) {
                 embed = embed.setFooter(`Hardhat network`)
