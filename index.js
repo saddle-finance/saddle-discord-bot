@@ -51,6 +51,11 @@ async function send(message) {
 
 function toHumanString(rawTokenAmount, decimals, digitsToShow) {
     let s = BigNumber.from(rawTokenAmount).div(BigNumber.from(10).pow(decimals - digitsToShow)).toString();
+    if (s.length < digitsToShow) {
+        for (let i = 0; i < digitsToShow; i++) {
+            s = "0" + s;
+        }
+    }
     return s.slice(0, -digitsToShow) + "." + s.slice(-digitsToShow);
 }
 
