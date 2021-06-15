@@ -1,15 +1,16 @@
-[{
-  "address": "0x4f6A43Ad7cba042606dECaCA730d4CE0A57ac62e",
-  "localAddress": "0x610178dA211FEF7D417bC0e6FeD39F05609AD788",
-  "tokens": ["tBTC", "WBTC", "renBTC", "sBTC"],
-  "decimals": [18, 8, 8, 18],
-  "coingeckoIDs": ["tbtc", "wrapped-bitcoin", "renbtc", "sbtc"],
-  "name": "BTC pool",
-  "authorThumbnailURL": "https://raw.githubusercontent.com/saddle-finance/saddle-discord-bot/master/thumbnails/pool_btc.png"
-},
+[
+  {
+    "address": "0x4f6A43Ad7cba042606dECaCA730d4CE0A57ac62e",
+    "localAddress": "0x610178dA211FEF7D417bC0e6FeD39F05609AD788",
+    "tokens": ["tBTC", "WBTC", "renBTC", "sBTC"],
+    "decimals": [18, 8, 8, 18],
+    "coingeckoIDs": ["tbtc", "wrapped-bitcoin", "renbtc", "sbtc"],
+    "name": "BTC pool",
+    "authorThumbnailURL": "https://raw.githubusercontent.com/saddle-finance/saddle-discord-bot/master/thumbnails/pool_btc.png"
+  },
   {
     "address": "0x3911F80530595fBd01Ab1516Ab61255d75AEb066",
-    "localAddress": "0xCafac3dD18aC6c6e92c921884f9E4176737C052c",
+    "localAddress": "0x98A0Bc3f9FdAD482CB2e40dE1291f8b0A6FE1860",
     "tokens": ["DAI", "USDC", "USDT"],
     "decimals": [18, 6, 6],
     "coingeckoIDs": ["dai", "usd-coin", "tether"],
@@ -18,11 +19,20 @@
   },
   {
     "address": "0xdec2157831D6ABC3Ec328291119cc91B337272b5",
-    "localAddress": "0x9f1ac54BEF0DD2f6f3462EA0fa94fC62300d3a8e",
+    "localAddress": "0x6F62d12568c81Dc0fb38426B7Cdba2d265f89B29",
     "tokens": ["WETH", "vETH2"],
     "decimals": [18, 18],
     "coingeckoIDs": ["ethereum", "ethereum"],
     "name": "vETH2 pool",
     "authorThumbnailURL": "https://raw.githubusercontent.com/saddle-finance/saddle-discord-bot/master/thumbnails/pool_ether.png"
+  },
+  {
+    "address": "0xa6018520EAACC06C30fF2e1B3ee2c7c22e64196a",
+    "localAddress": "0xCafac3dD18aC6c6e92c921884f9E4176737C052c",
+    "tokens": ["WETH", "ALETH", "SETH"],
+    "decimals": [18, 18, 18],
+    "coingeckoIDs": ["ethereum", "alchemix-eth", "seth"],
+    "name": "alETH Pool",
+    "authorThumbnailURL": "https://raw.githubusercontent.com/saddle-finance/saddle-discord-bot/master/thumbnails/pool_aleth.png"
   }
 ]
