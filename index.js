@@ -14,6 +14,7 @@ const bot = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MES
 const provider = new ethers.providers.JsonRpcProvider(process.env.ALCHEMY_API);
 const isProduction = !process.env.ALCHEMY_API.includes("127.0.0.1")
 const coinGeckoAPI = "https://api.coingecko.com/api/v3/simple/price"
+const saddleTeamRole = 780548108156665867
 
 const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -57,6 +58,10 @@ function toHumanString(rawTokenAmount, decimals, digitsToShow) {
     } else {
         return s.toFixed(digitsToShow);
     }
+}
+
+function calculateExchangeRate(sellAmount, buyAmount) {
+    return buyAmount / sellAmount
 }
 
 function toUSD(s) {
@@ -107,7 +112,7 @@ async function main() {
             ))
             const fee = (numOfTokenBought * 0.0004 / (1 - 0.0004))
             const totalUSDFee = toUSD( fee * prices[`${contract["coingeckoIDs"][boughtId]}`]["usd"])
-
+            const exchangeRate = calculateExchangeRate(numOfTokenSold * 1, numOfTokenBought * 1)
             // inside a command, event listener, etc.
             let embed = new MessageEmbed()
                 .setColor('#0099ff')
@@ -121,6 +126,10 @@ async function main() {
                 )
                 .addField(`Fees gained by LPs`, `${fee.toFixed(digitsToShow)} ${boughtTokenName} (${totalUSDFee})`, false)
                 .setTimestamp()
+            
+                if (exchangeRate <= 0.98) {
+                    embed.addField('Exchange rate', `1:${exchangeRate.toFixed(3)} (attn: <@&${saddleTeamRole}>)`)
+                }
 
             if (!isProduction) {
                 embed = embed.setFooter(`Hardhat network`)
