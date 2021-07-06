@@ -14,7 +14,7 @@ const bot = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MES
 const provider = new ethers.providers.JsonRpcProvider(process.env.ALCHEMY_API);
 const isProduction = !process.env.ALCHEMY_API.includes("127.0.0.1")
 const coinGeckoAPI = "https://api.coingecko.com/api/v3/simple/price"
-const SADDLE_TEAM_ROLE = 780548108156665867
+const saddleTeamRole = 780548108156665867
 
 const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -127,8 +127,8 @@ async function main() {
                 .addField(`Fees gained by LPs`, `${fee.toFixed(digitsToShow)} ${boughtTokenName} (${totalUSDFee})`, false)
                 .setTimestamp()
             
-                if(exchangeRate <= 0.97) {
-                    embed.addField('Exchange rate', `1:${exchangeRate.toFixed(3)} (attn: <@&${SADDLE_TEAM_ROLE}>)`)
+                if (exchangeRate <= 0.98) {
+                    embed.addField('Exchange rate', `1:${exchangeRate.toFixed(3)} (attn: <@&${saddleTeamRole}>)`)
                 }
 
             if (!isProduction) {
