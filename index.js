@@ -139,6 +139,30 @@ async function main() {
             log(JSON.stringify(event));
         });
 
+        instance.on("FlashLoan", async (receiver, tokenIndex, amount, amountFee, protocolFee, event) => {
+            const loanAmount = toHumanString(amount, contract["decimals"][tokenIndex], 3)
+            const getUSDAmount = (amt, idx) => toHumanString(BigNumber.from(amt).mul(formatNum(prices[`${contract["coingeckoIDs"][idx]}`]["usd"])).div(100), contract["decimals"][idx], 2)
+            const loanAmountUSD = getUSDAmount(amount, tokenIndex)
+            const feeAmountUSD =  getUSDAmount(amountFee, tokenIndex)
+
+            let embed = new MessageEmbed()
+                .setColor('#33ff33')
+                .setTitle('Flash Loan')
+                .setURL(`https://etherscan.io/tx/${event.transactionHash}`)
+                .setAuthor(contract["name"], contract["authorThumbnailURL"], `https://etherscan.io/address/${contractAddress}`)
+                .setDescription(`${receiver} took a flash loan from the ${contract['name']}`)
+                .addFields(
+                    { name: "Loan amount", value: `${loanAmount} ${contract["tokens"][tokenIndex]}`, inline: false },
+                    { name: "Loan USD value", value: `${toUSD(loanAmountUSD)}`, inline: false },
+                    { name: "Fees collected", value: `${toUSD(feeAmountUSD)}`, inline: false }
+                )
+                .setTimestamp()
+
+            if (!isProduction) {
+                embed = embed.setFooter(`Hardhat network`)
+            }
+        })
+
         // On AddLiquidity event
         instance.on("AddLiquidity", async (provider, tokenAmounts, fees, invariant, lpTokenSupply, event) => {
             const digitsToShow = 3
