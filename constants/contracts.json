@@ -43,5 +43,14 @@
     "coingeckoIDs": ["alchemix-usd", "fei-protocol", "frax", "liquity-usd"],
     "name": "D4 Pool",
     "authorThumbnailURL": "https://raw.githubusercontent.com/saddle-finance/saddle-discord-bot/master/thumbnails/pool_usd.png"
+  },
+  {
+    "address": "0xaCb83E0633d6605c5001e2Ab59EF3C745547C8C7",
+    "localAddress": "0xbf9fBFf01664500A33080Da5d437028b07DFcC55",
+    "tokens": ["DAI", "USDC", "USDT"],
+    "decimals": [18, 6, 6],
+    "coingeckoIDs": ["dai", "usd-coin", "tether"],
+    "name": "USD pool V2",
+    "authorThumbnailURL": "https://raw.githubusercontent.com/saddle-finance/saddle-discord-bot/master/thumbnails/pool_usd.png"
   }
 ]
