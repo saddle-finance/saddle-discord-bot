@@ -14,7 +14,7 @@ const bot = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MES
 const provider = new ethers.providers.JsonRpcProvider(process.env.ALCHEMY_API);
 const isProduction = !process.env.ALCHEMY_API.includes("127.0.0.1")
 const coinGeckoAPI = "https://api.coingecko.com/api/v3/simple/price"
-const saddleTeamRole = 780548108156665867
+const slippageSeekerRole = "935614128880508969"
 
 const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -128,7 +128,7 @@ async function main() {
                 .setTimestamp()
             
                 if (exchangeRate <= 0.98) {
-                    embed.addField('Exchange rate', `1:${exchangeRate.toFixed(3)} (attn: <@&${saddleTeamRole}>)`)
+                    embed.addField('Exchange rate', `1:${exchangeRate.toFixed(3)} (attn: <@&${slippageSeekerRole}>)`)
                 }
 
             if (!isProduction) {
