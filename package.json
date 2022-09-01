@@ -19,7 +19,7 @@
   "homepage": "https://github.com/saddle-finance/saddle-discord-bot#readme",
   "dependencies": {
     "async-retry": "^1.3.1",
-    "discord.js": "^12.5.3",
+    "discord.js": "^14.3.0",
     "dotenv": "^8.2.0",
     "ethers": "^5.1.3",
     "node-fetch": "^2.6.1",
